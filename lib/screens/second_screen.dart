@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iseneca/providers/users_providers.dart';
 import 'package:iseneca/screens/home_screen.dart';
+import 'package:iseneca/screens/list_view_alumnos.dart';
+import 'package:iseneca/screens/list_view_profesores.dart';
 import 'package:provider/provider.dart';
 
 class SecondScreen extends StatelessWidget {
@@ -44,7 +47,7 @@ class SecondScreen extends StatelessWidget {
                           style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
-                          width: 400,
+                          width: 270,
                         ),
                         const Icon(Icons.people),
                         const SizedBox(
@@ -88,7 +91,7 @@ class SecondScreen extends StatelessWidget {
                     child: IntrinsicHeight(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           SizedBox(
                             height: 60,
                           ),
@@ -111,10 +114,33 @@ class SecondScreen extends StatelessWidget {
                             width: 20,
                             color: Colors.white,
                           ),
-                          Icon(
-                            Icons.book_outlined,
-                            color: Colors.white,
-                          ),
+                          IconButton(
+                              icon: Icon(Icons.book_outlined),
+                              color: Colors.white,
+                              onPressed: () {
+                                Widget okButton = TextButton(
+                                  child: Text("OK"),
+                                  onPressed: (() => Navigator.pop(context)),
+                                );
+
+                                // set up the AlertDialog
+                                AlertDialog alert = AlertDialog(
+                                  title: Text("Bandeja de Firma"),
+                                  content: Text(
+                                      "Oops. Hay un error, lo areglaremos cuanto antes"),
+                                  actions: [
+                                    okButton,
+                                  ],
+                                );
+
+                                // show the dialog
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return alert;
+                                  },
+                                );
+                              }),
                           SizedBox(
                             width: 10,
                           ),
@@ -141,23 +167,24 @@ class SecondScreen extends StatelessWidget {
                   width: 50,
                 ),
                 Column(
-                  children: const [
-                    SizedBox(
-                      width: 100,
-                    ),
-                    Image(
-                      image: AssetImage('assets/sombrero.png'),
-                      width: 60,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
+                  children: [
+                    IconButton(
+                        icon: Image.asset('assets/sombrero.png'),
+                        iconSize: 60,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ListViewAlumnosScreen()),
+                          );
+                        }),
+                    const Text(
                       'Alumnado del',
                       style: TextStyle(fontSize: 20, color: Colors.black),
                       textAlign: TextAlign.start,
                     ),
-                    Text(
+                    const Text(
                       'centro',
                       style: TextStyle(fontSize: 20, color: Colors.black),
                       textAlign: TextAlign.start,
@@ -168,20 +195,24 @@ class SecondScreen extends StatelessWidget {
                   width: 50,
                 ),
                 Column(
-                  children: const [
-                    Image(
-                      image: AssetImage('assets/profesor.png'),
-                      width: 60,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
+                  children: [
+                    IconButton(
+                        icon: Image.asset('assets/profesor.png'),
+                        iconSize: 60,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ListViewProfesoresScreen()),
+                          );
+                        }),
+                    const Text(
                       'Personal del',
                       style: TextStyle(fontSize: 20, color: Colors.black),
                       textAlign: TextAlign.start,
                     ),
-                    Text(
+                    const Text(
                       'centro',
                       style: TextStyle(fontSize: 20, color: Colors.black),
                       textAlign: TextAlign.start,
@@ -215,7 +246,7 @@ class SecondScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 90,
+              height: 70,
             ),
             Row(
               children: [
